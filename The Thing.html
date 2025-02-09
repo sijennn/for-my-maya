@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? 💕</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: url('romantic-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            margin-top: 100px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #ff4d4d;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            font-size: 1.8rem;
+            padding: 12px 24px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        #yesBtn {
+            background-color: #28a745;
+            color: white;
+            font-size: 2rem;
+        }
+        #noBtn {
+            background-color: #dc3545;
+            color: white;
+        }
+        .photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            position: absolute;
+            animation: floatCircle 6s infinite linear;
+        }
+        @keyframes floatCircle {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(50px, -50px); }
+            50% { transform: translate(-50px, 0px); }
+            75% { transform: translate(50px, 50px); }
+            100% { transform: translate(0, 0); }
+        }
+        .firework {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: gold;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: explode 1s linear forwards;
+        }
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(10); opacity: 0; }
+        }
+        .heart {
+            position: fixed;
+            color: red;
+            font-size: 2rem;
+            animation: fall 5s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) scale(1); opacity: 1; }
+            100% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+        }
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="question">Will You Be My Valentine Meri Maya? ❤️</h1>
+        <div class="buttons">
+            <button id="yesBtn" onclick="yesAnswer()">Yes 💕</button>
+            <button id="noBtn" onclick="noClicked()">No 😢</button>
+        </div>
+    </div>
+
+    <audio id="loveSong" src="love-song.mp3"></audio>
+
+    <script>
+        // Added more photos
+        let photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg", "photo5.jpg", "photo6.jpg", "photo7.jpg", "photo8.jpg", "photo9.jpg", "photo10.jpg"];
+        let noClickCount = 0;
+
+        function yesAnswer() {
+            document.getElementById("loveSong").play();
+            alert("See you on Digitally on 14th Feb Maya(for now)! ❤️");
+            startFireworks();
+        }
+
+        function noClicked() {
+            let messages = ["Why no? 😢", "Why not? 😭", "Please say yes 🥺", "You're breaking my heart ka💔"];
+            let question = document.getElementById("question");
+            let yesBtn = document.getElementById("yesBtn");
+
+            if (noClickCount < messages.length) {
+                question.innerHTML = messages[noClickCount];
+                yesBtn.style.fontSize = (2 + noClickCount * 0.5) + "rem"; 
+            } else {
+                question.innerHTML = "Okay, I won't ask again... 😭";
+            }
+            noClickCount++;
+        }
+
+        function startFireworks() {
+            for (let i = 0; i < 20; i++) {
+                let firework = document.createElement("div");
+                firework.className = "firework";
+                firework.style.left = Math.random() * window.innerWidth + "px";
+                firework.style.top = Math.random() * window.innerHeight + "px";
+                document.body.appendChild(firework);
+                setTimeout(() => firework.remove(), 1000);
+            }
+        }
+
+        function createFloatingPhotos() {
+            photos.forEach((src, index) => {
+                let img = document.createElement("img");
+                img.src = src;
+                img.className = "photo";
+                img.style.left = Math.random() * window.innerWidth + "px";
+                img.style.top = Math.random() * window.innerHeight + "px";
+                img.style.animationDelay = (index * 0.5) + "s"; 
+                img.style.animationDirection = Math.random() > 0.5 ? "normal" : "reverse";  // randomize direction
+                document.body.appendChild(img);
+            });
+        }
+
+        function createFallingHearts() {
+            setInterval(() => {
+                let heart = document.createElement("div");
+                heart.className = "heart";
+                heart.innerHTML = "❤️";
+                heart.style.left = Math.random() * window.innerWidth + "px";
+                heart.style.top = "-10px";
+                heart.style.fontSize = Math.random() * 2 + 1 + "rem";
+                heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+            }, 300);
+        }
+
+        createFloatingPhotos(); 
+        createFallingHearts();
+    </script>
+
+</body>
+</html>
